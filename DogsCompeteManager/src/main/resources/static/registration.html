@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+
+        <script src="/js/bootstrap/jquery.js"></script>
+        <script src="/js/angular/angular.min.js"></script>
+        <script src="/js/angular/angular-messages.js"></script>
+        <script src="/js/angular/angular-resource.min.js"></script>
+        <script src="/js/angular/angular-route.min.js"></script>
+        <script src="/js/bootstrap/bootstrap.min.js"></script>
+
+        <link href="/css/forms.css" rel="stylesheet" />       
+
+        <title>Регистрация нового пользователя</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <form class="form-signin" action="">
+            <div class="container">
+                <h1>Регистрация</h1>
+                <p>Пожалуйста, заполните поля формы</p>
+                <hr>
+
+                <label for="inputLogin"><b>Логин</b></label>
+                <input id="inputLogin" type="text"  ng-model="login" required autofocus/>
+
+                <label for="psw"><b>Пароль</b></label>
+                <input id="psw"  type="password" ng-model="password" required/>
+
+                <label for="psw-repeat"><b>Повторите пароль</b></label>
+                <input id="psw-repeat" type="password" ng-model="password_repeat" required/>
+                <hr>
+
+                <button ng-click="save()" class="registerbtn">Зарегистрироваться</button>
+            </div>
+
+            <div class="container signin">
+                <p>Уже есть аккаунт? 
+                    <a href="login.html">Войти</a>.</p>
+            </div>
+        </form>
+    </body>
+</html>
