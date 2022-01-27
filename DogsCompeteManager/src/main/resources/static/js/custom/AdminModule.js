@@ -1,4 +1,4 @@
-var app = angular.module('AdminProfileApp', ['ngMessages', 'ngRoute']);
+var app = angular.module('adminModule', ['ngMessages', 'ngRoute']);
 
 
 app.config(function ($routeProvider) {

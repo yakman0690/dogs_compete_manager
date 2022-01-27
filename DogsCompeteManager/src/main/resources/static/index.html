@@ -1,51 +1,50 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-   <head>
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-      <title>Соревнования по кинологическому спорту</title>
-      <link href="/css/stylesheet.css" rel="stylesheet" type="text/css" />
-   </head>
-   <body>
-      <div id="top_bar_black">
-         <div id="logo_container">
-            <div id="logo_image"> </div>
-            <div id="nav_block">
-               <div class="nav_button">Главная</div>
-               <a class="nav_button" href="login.html">Вход</a>
-               <a class="nav_button" href="registration.html">Регистрация</a>
-            </div>
-         </div>
-      </div>
-      <div id="content_container">
-         <div id="header">
-            <div class="header_content_mainline">Соревнования по кинологическому спорту</div>
-            <div id="header_content_tagline"></div>
-         </div>
-         <div id="header_lower">
-            <div id="header_content_boxline">
-                Задача сервиса
-               <div id="header_content_boxcontent">Регистрация владельцев собак, спортсменов для просмотра графика соревнований и регистрации на соревнования по кинологическому спорту.
-               </div>
-            </div>
-         </div>
-      </div>
-      <div id="bottom_bar_black">
-         <div id="main_container">
-            <div id="header_lower">
-               <div id="header_content_lowerline">
-                  Контакты
-                  <div id="header_content_lowerboxcontent">
-                     nikta0690@gmail.com<br />
-                  </div>
-               </div>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Соревнования по кинологическому спорту</title>
+        <link href="/css/stylesheet.css" rel="stylesheet" type="text/css" />
+
+        <script src="/js/bootstrap/jquery.js"></script>
+        <script src="/js/angular/angular.min.js"></script>
+        <script src="/js/angular/angular-messages.js"></script>
+        <script src="/js/angular/angular-resource.min.js"></script>
+        <script src="/js/angular/angular-route.min.js"></script>
+
+        <script src="js/custom/MainModule.js"></script>
+    </head>
+    <body ng-app="mainModule" ng-controller="MainController">
+        <div id="top_bar_black">
+            <a class="nav_user" style="color:greenyellow" ng-if="currentUser" href="user.html">Пользователь: {{currentUser.personalData.firstName}}</a>
+            <div class="nav_user" style="color:red" ng-if="!currentUser">Вход не выполнен</div>
+            <a ng-if="!currentUser" class="nav_button" href="login.html">Вход</a>
+            <a ng-if="!currentUser" class="nav_button" href="registration.html">Зарегистрироваться</a>
+            <a style="float:right" ng-if="currentUser" class="nav_button" href="logout">Выход</a>
+        </div>
+        <div id="content_container">
+            <div id="header">
+                <div class="header_content_mainline">Соревнования по кинологическому спорту</div>
+                <div id="header_content_tagline"></div>
             </div>
             <div id="header_lower">
-               <div id="header_content_lowerline">
-                  
-                  <div id="header_content_lowerboxcontent"></div>
-               </div>
+                <div id="header_content_boxline">
+                    Задача сервиса
+                    <div id="header_content_boxcontent">Регистрация владельцев собак, спортсменов для просмотра графика соревнований и регистрации на соревнования по кинологическому спорту.
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-   </body>
+        </div>
+        <div id="bottom_bar_black">
+            <div id="main_container">
+                <div id="header_lower">
+                    <div id="header_content_lowerline">
+                        Контакты
+                        <div id="header_content_lowerboxcontent">
+                            yakman.test@gmail.com<br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
