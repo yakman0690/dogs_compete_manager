@@ -9,6 +9,6 @@ package ru.yakman.exception;
  *
  * @author Test
  */
-public class UserAlreadyExistsException extends Exception {
+public class EntityAlreadyExistsException extends Exception {
 
 }

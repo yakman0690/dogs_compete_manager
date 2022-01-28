@@ -1,0 +1,52 @@
+
+<div class="generic-container">
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-body">
+            <h2>Новое мероприятие</h2>
+
+            <p ng-if="data.error" style="color:red; font-size: 20px">{{data.message}}</p>
+            <p ng-if="!data.error && data.message" style="color:green; font-size: 20px">{{data.message}}</p>
+            <table class="table table-th-block">
+                <tbody>
+                    <tr>
+                        <td class="active">Наименование
+                        </td>
+                        <td><input style="font-size:16px" type="text" class="form-control" ng-model="currentEvent.name"></td>
+                    </tr>
+                    <tr>
+                        <td class="active">Дата</td>
+                        <td><input style="font-size:16px"  type="date" class="form-control" ng-model="currentEvent.date"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button ng-click="addEvent()" class="btn-lg btn-add">Добавить</button>
+        </div>
+    </div>	
+
+    <hr/>
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <h2>Общий список</h2>
+
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table>
+                    <tr>
+                        <th>Дата</th>
+                        <th>Наименование</th>
+                        <th></th>
+                    </tr>
+
+                    <tr ng-repeat="event in events">
+                        <td>{{event.date| date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td>{{event.name}}</td>
+                        <td> <button class="btn-lg btn-delete" ng-click="deleteEvent(event.id)">Удалить</button></td>
+                        <!--TODO: add change password -->
+                    </tr>
+                </table>	
+            </div>
+        </div>
+    </div>
+</div>

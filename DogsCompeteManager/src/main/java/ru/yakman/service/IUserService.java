@@ -26,5 +26,7 @@ public interface IUserService {
     public void updateUserPassword(String login, String password) throws Exception;
     
     public String getUserEmail(String login) throws Exception;
+    
+    public void createServiceAdmin();
 
 }

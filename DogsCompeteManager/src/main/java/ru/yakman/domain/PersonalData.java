@@ -28,8 +28,6 @@ public class PersonalData {
 
     private String imageUrl;
 
-    private Date birthDate;
-
     private String email;
 
 }

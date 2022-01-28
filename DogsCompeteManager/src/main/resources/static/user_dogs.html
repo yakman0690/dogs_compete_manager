@@ -1,26 +1,75 @@
-<h2>Мои собаки</h2>
 
-<button class="btn-add">Добавить</button>
-<table>
-    <tr>
-        <th>Кличка</th>
-        <th>Клеймо/Чип</th>
-        <th>Родословная</th>
-        <th>Пол</th>
-        <th>Дата рождения</th>
-    </tr>
-    <tr>
-        <td>Шарик</td>
-        <td>12165146554</td>
-        <td>444655464</td>
-        <td>кобель</td>
-        <td>06.07.2019</td>                    
-    </tr>
-    <tr>
-        <td>Жучка</td>
-        <td>12165146554</td>
-        <td>444655464</td>
-        <td>сука</td>
-        <td>06.07.2019</td>                    
-    </tr>
-</table>
+<div class="generic-container">
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-body">
+            <h2>Новая собака</h2>
+
+            <p ng-if="data.error" style="color:red; font-size: 20px">{{data.message}}</p>
+            <p ng-if="!data.error && data.message" style="color:green; font-size: 20px">{{data.message}}</p>
+            <table class="table table-th-block">
+                <tbody>
+                    <tr>
+                        <td class="active">Кличка</td>
+                        <td><input style="font-size:16px" type="text" class="form-control" ng-model="currentDog.name"></td>
+                    </tr>
+                    <tr>
+                        <td class="active">Порода</td>
+                        <td><input style="font-size:16px"  type="text" class="form-control" ng-model="currentDog.breed"></td>
+                    </tr>
+                    <tr>
+                        <td class="active">День рождения</td>
+                        <td><input style="font-size:16px"  type="date" class="form-control" ng-model="currentDog.birthday"></td>
+                    </tr>
+                    <tr>
+                        <td class="active">Пол</td>
+                        <td><input style="font-size:16px"  type="text" class="form-control" ng-model="currentDog.gender"></td>
+                    </tr>
+                    <tr>
+                        <td class="active">Родословная</td>
+                        <td><input style="font-size:16px"  type="text" class="form-control" ng-model="currentDog.pedigree"></td>
+                    </tr>
+                    <tr>
+                        <td class="active">Чип/Клеймо</td>
+                        <td><input style="font-size:16px"  type="text" class="form-control" ng-model="currentDog.tatoo"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button ng-click="addDog()" class="btn-lg btn-success">Добавить</button>
+        </div>
+    </div>	
+
+    <hr/>
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <h2>Общий список</h2>
+
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table>
+                    <tr>
+                        <th>Кличка</th>
+                        <th>Порода</th>
+                        <th>День рождения</th>
+                        <th>Пол</th>
+                        <th>Родословная</th>
+                        <th>Чип</th>
+                        <th></th>
+                    </tr>
+
+                    <tr ng-repeat="dog in dogs">
+                        <td>{{dog.name}}</td>
+                        <td>{{dog.breed}}</td>
+                        <td>{{dog.birthday| date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td>{{dog.gender}}</td>
+                        <td>{{dog.pedigree}}</td>
+                        <td>{{dog.tatoo}}</td>
+                        <td> <button class="btn-lg btn-danger" ng-click="deleteDog(dog.id)">Удалить</button></td>
+                        <!--TODO: add change password -->
+                    </tr>
+                </table>	
+            </div>
+        </div>
+    </div>
+</div>

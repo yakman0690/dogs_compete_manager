@@ -16,34 +16,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.yakman.domain.User;
 import ru.yakman.exception.EntityAlreadyExistsException;
-import ru.yakman.service.IEmailService;
 import ru.yakman.service.IUserService;
 
 /**
  *
  * @author Test
  */
-@RestController
-@RequestMapping("/user")
-public class UserController {
 
+@RestController
+@RequestMapping("/public/user")
+public class PublicUserController {
+    
     @Autowired
     private IUserService userService;
-    @Autowired
-    private IEmailService emailService;
-
+    
     @GetMapping(value = "/current", produces = "application/json")
     public User getCurrentUser(@AuthenticationPrincipal Object principal) {
         return userService.getCurrentUser(principal);
     }
-
-  
-
-    /*@RequestMapping("/vkuser")
-    public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
-        
-    }*/
-    @PostMapping(value = "/save")
+    
+     @PostMapping(value = "/add")
     public Map<String, Object> saveUser(@RequestBody User user) {
         Map<String, Object> result = new HashMap<>();
         try {
@@ -62,38 +54,5 @@ public class UserController {
         return result;
     }
 
-    @PostMapping(value = "/update")
-    public Map<String, Object> updateUser(@RequestBody User user) {
-        Map<String, Object> result = new HashMap<>();
-        try {
-            userService.updateUser(user);
-        } catch (Exception ex) {
-            result.put("result", false);
-            result.put("message", "Неизвестная ошибка при добавлении нового пользователя");
-            return result;
-        }
-        result.put("result", true);
-        result.put("message", "Личные данные пользователя " + user.getLogin() + " обновлены");
-        return result;
-    }
-
-    @PostMapping(value = "/updatePassword")
-    public Map<String, Object> updateUserPassword(@RequestBody Map<String, Object> data) {
-        Map<String, Object> result = new HashMap<>();
-        try {
-            String login = (String) data.get("login");
-            String password = (String) data.get("password");
-            userService.updateUserPassword(login, password);
-        } catch (Exception ex) {
-            result.put("result", false);
-            result.put("message", "Неизвестная ошибка при обновлении пароля пользователя");
-            return result;
-        }
-        result.put("result", true);
-        result.put("message", "Пароль пользователя обновлен");
-        return result;
-    }
-
     
-
 }

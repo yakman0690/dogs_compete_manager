@@ -12,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import ru.yakman.domain.PersonalData;
 import ru.yakman.domain.User;
-import ru.yakman.exception.UserAlreadyExistsException;
+import ru.yakman.exception.EntityAlreadyExistsException;
 import ru.yakman.exception.UserDoesntExistException;
 import ru.yakman.repository.UserRepository;
 import ru.yakman.service.IUserService;
@@ -71,14 +71,14 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public List<User> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return userRepository.findAll();
     }
 
     @Override
     public void addUser(User user) throws Exception {
         Optional<User> existing = userRepository.findByLogin(user.getLogin());
         if (existing.isPresent()) {
-            throw new UserAlreadyExistsException();
+            throw new EntityAlreadyExistsException();
         }
 
         String pw = user.getPassword();
@@ -122,6 +122,21 @@ public class UserServiceImpl implements IUserService {
 
         User user = existing.get();
         return user.getPersonalData().getEmail();
+    }
+
+    @Override
+    public void createServiceAdmin() {
+        Optional<User> adminOpt = userRepository.findByLogin("admin");
+        if (!adminOpt.isPresent()) {
+            User admin = new User();
+            admin.setLogin("admin");
+            admin.setPassword(PasswordUtils.encodePassword("admin"));
+            admin.setRole("ADMIN");
+            PersonalData pd = new PersonalData();
+            pd.setFirstName("Администратор");
+            admin.setPersonalData(pd);
+            userRepository.save(admin);
+        }
     }
 
 }
