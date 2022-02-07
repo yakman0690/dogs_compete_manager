@@ -2,18 +2,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="_csrf" content="$_csrf.getToken()"/>
+        <meta name="_csrf_header" content="$_csrf.getHeaderName()"/>
+        
         <title>Личный кабинет пользователя</title>
         <link href="css/stylesheet.css" rel="stylesheet" type="text/css" />
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
 
         <script src="/js/bootstrap/jquery.js"></script>
+        <script src="/js/bootstrap/bootstrap.min.js"></script>
         <script src="/js/angular/angular.min.js"></script>
         <script src="/js/angular/angular-messages.js"></script>
         <script src="/js/angular/angular-resource.min.js"></script>
         <script src="/js/angular/angular-route.min.js"></script>
 
         <script src="js/custom/UserModule.js"></script>
+
+
     </head>
     <body ng-app="userModule">
         <div id="top_bar_black">

@@ -23,7 +23,11 @@
                     </tr>
                     <tr>
                         <td class="active">Пол</td>
-                        <td><input style="font-size:16px"  type="text" class="form-control" ng-model="currentDog.gender"></td>
+                        <td>
+                            <select ng-model="currentDog.gender" style="width:100%;font-size:16px" class="form-select form-select-lg mb-3">
+                                <option value="MALE">Кобель</option>
+                                <option value="FEMALE">Сука</option>
+                            </select></td>
                     </tr>
                     <tr>
                         <td class="active">Родословная</td>
@@ -62,11 +66,10 @@
                         <td>{{dog.name}}</td>
                         <td>{{dog.breed}}</td>
                         <td>{{dog.birthday| date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                        <td>{{dog.gender}}</td>
+                        <td>{{dog.gender}}                        </td>
                         <td>{{dog.pedigree}}</td>
                         <td>{{dog.tatoo}}</td>
                         <td> <button class="btn-lg btn-danger" ng-click="deleteDog(dog.id)">Удалить</button></td>
-                        <!--TODO: add change password -->
                     </tr>
                 </table>	
             </div>

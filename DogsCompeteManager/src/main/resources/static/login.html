@@ -6,29 +6,25 @@
 
 
         <script src="/js/bootstrap/jquery.js"></script>
-        <script src="/js/angular/angular.min.js"></script>
-        <script src="/js/angular/angular-messages.js"></script>
-        <script src="/js/angular/angular-resource.min.js"></script>
-        <script src="/js/angular/angular-route.min.js"></script>
-
-
         <script src="/js/bootstrap/bootstrap.min.js"></script>
 
 
 
         <link href="/css/login.css" rel="stylesheet" />
-        <!--<link href="resources/css/bootstrap.css" rel="stylesheet" />
-        <link href="resources/css/modern-business.css" rel="stylesheet" />-->
+
+        <script src="js/custom/PublicModule.js"></script><!-- comment -->
     </head>
-    <body>
+    <body ng-app="publicModule">
 
         <div class="container">
-            <form method="post" action="check">
+            <form method="post" action="login/check">
+
                 <div class="row" >
                     <h2 style="text-align:center">Вход в систему</h2>
                     <div class="col-xs-6" >
                         <input type="text" id="username" name="username" placeholder="Имя пользователя" required>
                         <input type="password" id="password"  name="password" placeholder="Пароль" required>
+
                         <input type="submit" value="Войти">
                         <p>или</p>
                         <a href="/oauth2/authorization/vk" class="vk btn">
@@ -50,6 +46,7 @@
             <p>Забыли пароль?
                 <a href="public/restorePassword.html">Восстановить</a>.</p>
         </div>
+
 
 
 

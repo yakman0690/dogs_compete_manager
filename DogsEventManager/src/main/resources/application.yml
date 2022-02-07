@@ -1,0 +1,28 @@
+## YAML Template.
+---
+server:
+    port: 8084
+    
+remote:
+    server:
+        host: localhost
+        port: 8081
+        username: remote
+        password: remote
+        
+## Mongo DB
+spring:
+    data:
+        mongodb:
+            host: localhost
+            port: 27017
+            database: events   
+## broker uri
+    activemq:
+        brokerUrl: tcp://localhost:11878
+        
+jms:
+    queue:
+        name: event_queue
+    topic:
+        name: event_topic

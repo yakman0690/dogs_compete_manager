@@ -25,5 +25,6 @@ public class OnStartUp
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
         userService.createServiceAdmin();
+        userService.createRemoteUser();
     }
 }

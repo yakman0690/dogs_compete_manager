@@ -15,15 +15,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -33,8 +34,8 @@ import org.springframework.security.oauth2.client.endpoint.OAuth2AccessTokenResp
 import org.springframework.security.oauth2.client.endpoint.OAuth2AuthorizationCodeGrantRequest;
 import org.springframework.security.oauth2.client.http.OAuth2ErrorResponseErrorHandler;
 import org.springframework.security.oauth2.core.http.converter.OAuth2AccessTokenResponseHttpMessageConverter;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.client.RestTemplate;
 import ru.yakman.service.impl.CustomOAuth2UserService;
 import ru.yakman.service.impl.UserDetailsServiceImpl;
@@ -47,6 +48,19 @@ import ru.yakman.utils.CustomTokenResponseConverter;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Configuration
+    @Order(Ordered.HIGHEST_PRECEDENCE)
+    public static class RemoteSecurityConfig extends WebSecurityConfigurerAdapter {
+
+        protected void configure(HttpSecurity http) throws Exception {
+            http
+                    .csrf().disable()
+                    .antMatcher("/remote/**")
+                    .authorizeRequests(a -> a.anyRequest().authenticated())
+                    .httpBasic();
+        }
+    }
 
     @Override
     public void init(WebSecurity web) throws Exception {
@@ -76,6 +90,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             throws Exception {
         http
                 .csrf().disable()
+                //.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                //.and()
+                // .csrf().csrfTokenRepository(csrfTokenRepository())
+                //.and()
+                .antMatcher("/**")
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
                 //.antMatchers("/registration.html").permitAll()
@@ -95,7 +114,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin().loginPage("/login.html")
                 .usernameParameter("username")
                 .passwordParameter("password")
-                .loginProcessingUrl("/check")
+                .loginProcessingUrl("/login/check")
                 .successHandler(new SimpleUrlAuthenticationSuccessHandler() {
                     @Override
                     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -140,6 +159,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .clearAuthentication(true)
                 .invalidateHttpSession(true)
                 .and()
+                //.addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
+                /*.and()
                 .httpBasic()
                 //убрать всплывающее окно логи-пароль
                 .authenticationEntryPoint(new AuthenticationEntryPoint() { //<< implementing this interface
@@ -149,18 +170,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         //>>> response.addHeader("WWW-Authenticate", "Basic realm=\"" + realmName + "\""); <<< (((REMOVED)))
                         response.sendError(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase());
                     }
-                })
-                .and().oauth2Login()
+                })*/
+                .oauth2Login()
                 //Access token Endpoint
                 .tokenEndpoint()
                 .accessTokenResponseClient(accessTokenResponseClient())
                 //Userinfo endpoint
+
                 .and()
                 .userInfoEndpoint()
-                .userService(customOAuth2UserService);;
+                .userService(customOAuth2UserService);
     }
-    
-    
+
     @Autowired
     private CustomOAuth2UserService customOAuth2UserService;
 

@@ -8,9 +8,11 @@ package ru.yakman.controller;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.yakman.service.IEmailService;
 import ru.yakman.service.IUserService;
@@ -52,5 +54,12 @@ public class PublicController {
             result.put("message", "Неизвестная ошибка при восстановлении пароля");
             return result;
         }
+    }
+    
+    
+    @RequestMapping("/csrf")
+    public @ResponseBody
+    CsrfToken ping(CsrfToken token) {
+        return token;
     }
 }

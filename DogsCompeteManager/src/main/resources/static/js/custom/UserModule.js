@@ -128,15 +128,20 @@ app.controller('UserDogsController', ['$scope', 'UserDogsService', function ($sc
             error: false,
             message: null
         }
-        $scope.currentDog = {
-            name: null,
-            breed: null,
-            birthday: null,
-            gender: null,
-            pedigree: null,
-            tatoo: null,
-            owner: null
+
+
+        clearForm = function () {
+            $scope.currentDog = {
+                name: null,
+                breed: null,
+                birthday: null,
+                gender: null,
+                pedigree: null,
+                tatoo: null,
+                owner: null
+            }
         }
+        clearForm();
         UserDogsService.getDogs().then(function success(response) {
             $scope.dogs = response.data;
         },
@@ -153,6 +158,7 @@ app.controller('UserDogsController', ['$scope', 'UserDogsService', function ($sc
                 UserDogsService.addDog($scope.currentDog).then(function success(response) {
                     UserDogsService.getDogs().then(function success(response2) {
                         $scope.dogs = response2.data;
+                        clearForm();
                     },
                             function error(response2) {}
                     );
@@ -218,5 +224,84 @@ app.service('UserDogsService', ['$http', function ($http) {
 
 //TODO: check errors and messaging
 
-app.controller('UserEventsController', ['$scope', function ($scope) {
+app.controller('UserEventsController', ['$scope', 'UserEventService', 'UserDogsService', function ($scope, UserEventService, UserDogsService) {
+
+        $scope.events = [];
+        $scope.myEvents = [];
+        $scope.data = {
+            error: false,
+            message: null
+        }
+        init = function () {
+            UserEventService.getAllEvents().then(function success(response) {
+                $scope.events = response.data;
+            },
+                    function error(response) {}
+            );
+            UserEventService.getMyEvents().then(function success(response) {
+                $scope.myEvents = response.data;
+            },
+                    function error(response) {}
+            );
+            $scope.currentEvent = null;
+            $scope.currentDogId = null;
+            $('#addDogModal').modal('hide');
+        }
+
+        init();
+
+        $scope.signUp = function (event_id) {
+            $('#addDogModal').modal('show');
+            $scope.currentEvent = event_id;
+        }
+
+        UserDogsService.getDogs().then(function success(response) {
+            $scope.dogs = response.data;
+        },
+                function error(response) {}
+        );
+        $scope.signUpCommit = function () {
+            if ($scope.currentDogId) {
+                UserEventService.signUp($scope.currentEvent, $scope.currentDogId).then(function success(response) {
+                    init();
+                },
+                        function error(response) {}
+                );
+            }
+        }
+
+
+    }]);
+
+
+app.service('UserEventService', ['$http', function ($http) {
+
+
+        this.getAllEvents = function () {
+            return $http({
+                method: 'GET',
+                url: '/user/event/all',
+                headers: 'Accept:application/json'
+            });
+        }
+        this.getMyEvents = function () {
+            return $http({
+                method: 'GET',
+                url: '/user/event/my',
+                headers: 'Accept:application/json'
+            });
+        }
+        this.signUp = function (eventId, dogId) {
+            return $http({
+                method: 'POST',
+                url: '/user/event/signUp',
+                headers: 'Accept:application/json',
+                params: {
+                    eventId: eventId,
+                    dogId: dogId
+                }
+            });
+        }
+
+
     }]);

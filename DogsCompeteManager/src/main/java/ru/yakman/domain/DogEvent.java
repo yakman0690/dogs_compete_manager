@@ -5,11 +5,14 @@
  */
 package ru.yakman.domain;
 
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,9 +35,9 @@ public class DogEvent {
     private Long id;
 
     private String name;
-    private String date;
-    @OneToMany
-    private List<Dog> participants;
+    private Date date;
+    @ManyToMany
+    private List<Dog> participants = new LinkedList<>();
 
     //todo: spring data acl - make available for
 }

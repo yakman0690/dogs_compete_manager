@@ -8,7 +8,6 @@ package ru.yakman.service.impl;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import ru.yakman.domain.PersonalData;
 import ru.yakman.domain.User;
@@ -138,5 +137,23 @@ public class UserServiceImpl implements IUserService {
             userRepository.save(admin);
         }
     }
+    
+    
+    //TODO: it's a temporary function, onle for remote security config demo
+    @Override
+    public void createRemoteUser() {
+        Optional<User> remoteOpt = userRepository.findByLogin("remote");
+        if (!remoteOpt.isPresent()) {
+            User admin = new User();
+            admin.setLogin("remote");
+            admin.setPassword(PasswordUtils.encodePassword("remote"));
+            admin.setRole("USER");
+            PersonalData pd = new PersonalData();
+            pd.setFirstName("Удаленный пользователь");
+            admin.setPersonalData(pd);
+            userRepository.save(admin);
+        }
+    }
+
 
 }

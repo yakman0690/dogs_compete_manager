@@ -13,11 +13,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.yakman.domain.User;
 import ru.yakman.exception.EntityAlreadyExistsException;
 import ru.yakman.service.IEmailService;
 import ru.yakman.service.IUserService;
+import ru.yakman.service.IStorageService;
 
 /**
  *
@@ -36,8 +40,6 @@ public class UserController {
     public User getCurrentUser(@AuthenticationPrincipal Object principal) {
         return userService.getCurrentUser(principal);
     }
-
-  
 
     /*@RequestMapping("/vkuser")
     public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
@@ -94,6 +96,13 @@ public class UserController {
         return result;
     }
 
-    
+    @Autowired
+    private IStorageService storageService;
+
+    @PostMapping("/upload")
+    public void handleFileUpload(@RequestParam("file") MultipartFile file,
+            RedirectAttributes redirectAttributes) {
+        storageService.store(file);
+    }
 
 }

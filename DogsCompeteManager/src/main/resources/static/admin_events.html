@@ -36,14 +36,15 @@
                     <tr>
                         <th>Дата</th>
                         <th>Наименование</th>
+                        <th>Собак участвует</th>
                         <th></th>
                     </tr>
 
                     <tr ng-repeat="event in events">
                         <td>{{event.date| date:'yyyy-MM-dd HH:mm:ss'}}</td>
                         <td>{{event.name}}</td>
+                        <td>{{event.participants.length}}</td>
                         <td> <button class="btn-lg btn-delete" ng-click="deleteEvent(event.id)">Удалить</button></td>
-                        <!--TODO: add change password -->
                     </tr>
                 </table>	
             </div>

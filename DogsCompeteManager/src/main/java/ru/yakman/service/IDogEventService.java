@@ -8,6 +8,7 @@ package ru.yakman.service;
 import java.util.Date;
 import java.util.List;
 import ru.yakman.domain.DogEvent;
+import ru.yakman.domain.User;
 
 /**
  *
@@ -17,6 +18,8 @@ public interface IDogEventService {
 
     public List<DogEvent> getAll();
 
+    public List<DogEvent> getFuture();
+
     public List<DogEvent> findByDate(Date date);
 
     public DogEvent findOne(Long id);
@@ -24,4 +27,8 @@ public interface IDogEventService {
     public void deleteOne(Long id);
 
     public void addNewEvent(DogEvent dogEvent);
+
+    public List<DogEvent> getForUser(User user);
+
+    public void signUpDog(Long eventId, Long dogId);
 }

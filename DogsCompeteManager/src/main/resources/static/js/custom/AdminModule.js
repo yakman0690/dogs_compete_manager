@@ -90,6 +90,7 @@ app.controller('AdminMailController', ['$scope', 'AdminUserService', 'AdminMailS
                     CanisService";
                     AdminMailService.sendMail(email, text)
                             .then(function success(response) {
+                                $scope.data.text = "";
                             },
                                     function error(response) {
                                         console.info('Ошибка при рассылке')
@@ -107,10 +108,15 @@ app.controller('AdminEventController', ['$scope', 'AdminEventService', function 
             error: false,
             message: null
         }
-        $scope.currentEvent = {
-            name: null,
-            date: null
+
+
+        clearForm = function () {
+            $scope.currentEvent = {
+                name: null,
+                date: null
+            }
         }
+        clearForm();
         AdminEventService.getEvents().then(function success(response) {
             $scope.events = response.data;
         },
@@ -127,6 +133,7 @@ app.controller('AdminEventController', ['$scope', 'AdminEventService', function 
                 AdminEventService.addEvent($scope.currentEvent).then(function success(response) {
                     AdminEventService.getEvents().then(function success(response2) {
                         $scope.events = response2.data;
+                        clearForm();
                     },
                             function error(response2) {}
                     );
@@ -157,7 +164,7 @@ app.controller('AdminEventController', ['$scope', 'AdminEventService', function 
             );
         };
     }]);
-        //TODO: check errors and messaging
+//TODO: check errors and messaging
 
 app.service('AdminEventService', ['$http', function ($http) {
         this.addEvent = function (event) {

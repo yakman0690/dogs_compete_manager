@@ -6,8 +6,6 @@
 package ru.yakman.controller;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.yakman.config.SecurityConfig;
 import ru.yakman.domain.Dog;
-import ru.yakman.domain.DogEvent;
 import ru.yakman.domain.User;
 import ru.yakman.service.IDogService;
 import ru.yakman.service.IUserService;
