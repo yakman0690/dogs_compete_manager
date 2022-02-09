@@ -52,13 +52,13 @@ public class DogServiceImpl implements IDogService {
     @Override
     public void addNewDog(Dog dog, User user) throws Exception {
         if (dog.getTatoo() != null) {
-            Optional tatooOpt = dogRepository.findByTatoo(dog.getTatoo());
+            Optional tatooOpt = dogRepository.findFirstByTatoo(dog.getTatoo());
             if (tatooOpt.isPresent()) {
                 throw new EntityAlreadyExistsException();
             }
         }
         if (dog.getPedigree() != null) {
-            Optional pedigreeOpt = dogRepository.findByPedigree(dog.getPedigree());
+            Optional pedigreeOpt = dogRepository.findFirstByPedigree(dog.getPedigree());
             if (pedigreeOpt.isPresent()) {
                 throw new EntityAlreadyExistsException();
             }

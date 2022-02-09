@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.jms.JMSSessionMode;
+import java.util.stream.StreamSupport;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import ru.yakman.aop.SendJMSMessage;
 import ru.yakman.domain.Dog;
 import ru.yakman.domain.DogEvent;
+import ru.yakman.domain.QDogEvent;
 import ru.yakman.domain.User;
 import ru.yakman.repository.DogEventRepository;
 import ru.yakman.service.IDogEventService;
@@ -92,7 +93,14 @@ public class DogEventServiceImpl implements IDogEventService {
     }
 
     public List<DogEvent> getForDog(Dog dog) {
-        return dogEventRepository.findAll(eventWhereDogParticipate(dog.getId()));
+
+        QDogEvent dogEvent = QDogEvent.dogEvent;
+        com.querydsl.core.types.Predicate predicate = dogEvent.participants.contains(dog);
+        Iterable iterable = dogEventRepository.findAll(predicate);
+        List<DogEvent> l = (List<DogEvent>)StreamSupport.stream(iterable.spliterator(), false)
+                .collect(Collectors.toList());
+        return l;
+        //return dogEventRepository.findAll(eventWhereDogParticipate(dog.getId()));
     }
 
     @Override

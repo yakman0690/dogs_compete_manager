@@ -19,8 +19,8 @@ public interface DogRepository extends JpaRepository<Dog, Long> {
 
     public List<Dog> findByOwner(User user);
 
-    Optional<Dog> findByTatoo(String tatoo);
+    Optional<Dog> findFirstByTatoo(String tatoo);
 
-    Optional<Dog> findByPedigree(String pedigree);
+    Optional<Dog> findFirstByPedigree(String pedigree);
 
 }
