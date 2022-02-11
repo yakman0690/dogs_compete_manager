@@ -14,7 +14,6 @@ import ru.yakman.domain.User;
 import ru.yakman.exception.EntityAlreadyExistsException;
 import ru.yakman.repository.DogRepository;
 import ru.yakman.service.IDogService;
-import ru.yakman.service.IUserService;
 
 /**
  *
@@ -26,8 +25,6 @@ public class DogServiceImpl implements IDogService {
     @Autowired
     private DogRepository dogRepository;
 
-    @Autowired
-    private IUserService userService;
 
     @Override
     public List<Dog> getAll() {

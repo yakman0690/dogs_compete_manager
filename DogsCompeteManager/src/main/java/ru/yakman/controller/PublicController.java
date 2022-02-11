@@ -25,6 +25,7 @@ import ru.yakman.utils.PasswordUtils;
 @RestController
 @RequestMapping("/public")
 public class PublicController {
+
     @Autowired
     private IUserService userService;
     @Autowired
@@ -55,11 +56,10 @@ public class PublicController {
             return result;
         }
     }
-    
-    
-    @RequestMapping("/csrf")
+
+    @RequestMapping("/test")
     public @ResponseBody
-    CsrfToken ping(CsrfToken token) {
-        return token;
+    String test() {
+        return "test";
     }
 }

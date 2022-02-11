@@ -1,2 +1,21 @@
-# test_projects
-Some training &amp; test projects
+# Регистрация владельцев собак на кинологические мероприятия
+Небольшие pet-проекты на Spring Boot для обобщения работы с различными технологиями
+
+##DogsCompeteManager
+Регистрация, вход, добавление кинологических мероприятий, собак, регистрация на них, редактирование профиля и т.д.
+Backend:
+	- Работа с данными: Spring Data JPA (сохранение основных сущностей в H2), CriteriaAPI, QueryDSL
+	- Защита: Spring Security (вход с помощью loginForm и oauth2 авторизация через ВК), разделение ролей
+	- Отправка сообщений об обновлениях с помощью JMS c провайдером ActiveMQ и с помощью Spring AOP
+	- Взаимодействие с frontend и внешними системами с помощью RestAPI
+	- Тестирование с помощью JUnit Jupiter, Mockito, Spring Boot Test
+Frontend:
+	- HTML+CSS
+	- Angular JS
+	- Bootstrap
+	
+##DogsEventManager
+Получение из DogsCompeteManager информации о кинологических мероприятиях и сохранение этой информации в документорриентированную БД
+- Получение сообщений об обновлении из топика ActiveMQ
+- Получение информации с помощью RestTemplate
+- Работа с данными: Spring Data MondoDB

@@ -27,7 +27,7 @@ public class AdminUsersController {
 
     @Autowired
     private IUserService userService;
-
+    
     @GetMapping(value = "/all", produces = "application/json")
     public List<User> getAll() {
         return userService.getAll();
